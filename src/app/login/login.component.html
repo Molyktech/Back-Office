@@ -1,0 +1,44 @@
+<div class="main-bg">
+  <h1>eAffidavits</h1>
+
+  <div class="sub-main">
+    <div class="user-bg">
+      <div class="top-content">
+        <img src="../../assets/img/undraw_profile_pic_ic5t.png" alt="user placeholder" />
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <p class="login-legend">
+          Login Here <span class="fa fa-hand-o-down"></span>
+        </p>
+        <div>
+          <p style="color:#E92626;font-size:20px;font-weight:normal" Class="text-center">
+            {{errorMessage}}
+          </p>
+        </div>
+        <div class="input">
+          <input type="type" placeholder="Username" name="username" required formControlName="username"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+          <span class="fa fa-envelope"></span>
+          <div class="alert alert-danger" *ngIf="username.touched && username.invalid || submitted && username.errors">
+            <div *ngIf="username?.errors.required">Username is required</div>
+          </div>
+        </div>
+        <div class="input">
+          <input type="password" placeholder="Password" name="password" required formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <span class="fa fa-unlock"></span>
+          <div class="alert alert-danger" *ngIf="password.touched && password.invalid || submitted && password.errors">
+            <div *ngIf="password?.errors.required">Password is required</div>
+            <div *ngIf="password?.errors?.shouldNotHaveSpaces">Password cannot contain space</div>
+          </div>
+        </div>
+        <button type="submit" class="submit button" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Login <span
+            class="fa fa-sign-in"></span>
+        </button>
+      </form>
+      <a href="#" class="bottom-forgot">Forgot Password</a>
+    </div>
+  </div>
+</div>

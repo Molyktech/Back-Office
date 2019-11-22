@@ -1,0 +1,234 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  line-height: 1;
+}
+
+// reset css to remove top margin from the app
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// mat dashboard styles
+#toolbarMenu {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+#mainToolbar .toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+#mainToolbar .toolbar-icon {
+  cursor: pointer;
+  margin: 0 8px;
+}
+
+#sidenavContainer {
+  margin-top: 64px;
+}
+
+#sidenav {
+  width: 240px;
+}
+
+#sidenav.menu-close {
+  width: 70px
+}
+
+#sidenav.menu-open {
+  width: 240px
+}
+
+#sidenav .avatar {
+  background-image: url('http://i.pravatar.cc/300');
+  background-size: cover;
+}
+
+#sidenav .mat-list-item-content {
+  padding: 0;
+}
+
+#sidenav .menu-item {
+  width: 100%;
+  border-radius: 0;
+  text-align: left;
+  padding: 10px;
+}
+
+#sidenav .menu-item:hover {
+  background: #eee;
+}
+
+#sidenav .menu-item mat-icon {
+  margin-right: 20px;
+  margin-left: 12px;
+}
+
+.dash-list h3 {
+  padding: 12px;
+}
+
+
+// global style for reusable button
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+
+}
+
+button.main {
+  transition: all 0.5s cubic-bezier(0.65, -0.25, 0.25, 1.95);
+  font-weight: 900;
+  color: #fff;
+  padding: 1.25rem 2rem;
+  background: #673AB7;
+  text-transform: uppercase;
+}
+
+button.main:hover,
+button.main:focus,
+button.main:active {
+  letter-spacing: 0.125rem;
+}
+
+
+.ng-valid[required], .ng-valid.required  {
+  border: 1px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border: 1px solid #a94442; /* red */
+}
+
+.bg-image{
+  background: url("https://seeklogo.com/images/C/coat-of-arms-of-nigeria-logo-1BB4D7976C-seeklogo.com.png");
+  background-position: center;
+ background-repeat: no-repeat;
+ background-size: contain;
+ opacity: .1;
+ height:200px;
+ position: relative;
+ top:270px;
+  
+}
