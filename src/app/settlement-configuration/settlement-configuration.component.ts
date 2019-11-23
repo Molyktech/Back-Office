@@ -48,21 +48,15 @@ export class SettlementConfigurationComponent implements OnInit {
 
   addParty(): void {
     this.checkAmount()
-    if(this.totalPartyAmount>=this.settlementForm.value.feeAmount){
-      swal.fire({
-        title: "Error!",
-        text: "Amount limit exceeded!",
-        icon: "warning"
-      });
-    }
-    else{
-      this.parties = this.settlementForm.get('parties') as FormArray;
-      this.parties.push(this.createParty());
-    }
+    this.parties = this.settlementForm.get('parties') as FormArray;
+        this.parties.push(this.createParty());
+    
   }
 
   deleteParty(i){
     this.parties.controls.splice(i,1)
+    this.parties.value.splice(i,1)
+    this.checkAmount()
   }
 
   getDocumentTypes(){
@@ -81,32 +75,58 @@ export class SettlementConfigurationComponent implements OnInit {
     this.totalPartyAmount=this.amountArray.reduce((a,b)=>{return a+b},0)
 
     this.amountArray=[]
-    console.log("total",this.totalPartyAmount)
-    console.log("fee",this.settlementForm.value.feeAmount)
   }
 
   saveConfig(){
     this.submitted=true
-    //this.checkAmount()
-    if(this.totalPartyAmount===this.settlementForm.value.feeAmount){
-      this.amountBalanced=true
-      swal.fire({
-        title: "Succesful!",
-        text: "Settlement successfully configured!",
-        icon: "success"
-      });
-      console.log(this.settlementForm.value)
-      this.settlementForm.reset()
-    }
+    this.checkAmount()
+    if(this.settlementForm.valid){
+      if(this.settlementForm.value.feeType==='fixed'){
+        if(this.totalPartyAmount===this.settlementForm.value.feeAmount){
+          this.amountBalanced=true
+          swal.fire({
+            title: "Succesful!",
+            text: "Settlement successfully configured!",
+            icon: "success"
+          });
+          this.settlementForm.reset()
+          this.settlementForm.value.feeType==='fixed'
+        }
+        else{
+          this.amountBalanced=false
+          swal.fire({
+            title: "Error!",
+            text: "Amounts not balanced",
+            icon: "warning"
+          });
+        }
+      }
+
+      else if(this.settlementForm.value.feeType==='percentage'){
+        if(this.totalPartyAmount===100){
+          this.amountBalanced=true
+          swal.fire({
+            title: "Succesful!",
+            text: "Settlement successfully configured!",
+            icon: "success"
+          });
+          this.settlementForm.reset()
+          this.settlementForm.value.feeType==='fixed'
+        }
+        else{
+          this.amountBalanced=false
+          swal.fire({
+            title: "Error!",
+            text: "Amounts not up to 100%!",
+            icon: "warning"
+          });
+        }
+      }
+      
+    }  
     else{
-      this.amountBalanced=false
-      swal.fire({
-        title: "Error!",
-        text: "Amounts not balanced!",
-        icon: "warning"
-      });
-      console.log("amount not  balanced")
-    }
+      console.log("fill all required fields")
+    }  
   }
 
   test(){
@@ -123,3 +143,30 @@ export class SettlementConfigurationComponent implements OnInit {
   }
 
 }
+
+// if(this.settlementForm.value.feeType==='fixed'){
+    //   if(this.totalPartyAmount>=this.settlementForm.value.feeAmount){
+    //     swal.fire({
+    //       title: "Error!",
+    //       text: "Amount limit exceeded!",
+    //       icon: "warning"
+    //     });
+    //   }
+    //   else if(this.totalPartyAmount<this.settlementForm.value.feeAmount || this.totalPartyAmount==0 || this.settlementForm.value.feeAmount==0){
+    //     this.parties = this.settlementForm.get('parties') as FormArray;
+    //     this.parties.push(this.createParty());
+    //   }
+    // }
+    // else if(this.settlementForm.value.feeType==='percentage'){
+    //   if(this.totalPartyAmount>=100){
+    //     swal.fire({
+    //       title: "Error!",
+    //       text: "Amount limit exceeded!",
+    //       icon: "warning"
+    //     });
+    //   }
+    //   else if(this.totalPartyAmount<100 || this.totalPartyAmount==0 || this.settlementForm.value.feeAmount==0){
+    //     this.parties = this.settlementForm.get('parties') as FormArray;
+    //     this.parties.push(this.createParty());
+    //   }
+    // }

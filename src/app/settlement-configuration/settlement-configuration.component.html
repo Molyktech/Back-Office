@@ -31,16 +31,21 @@
                 <label class="form-check-label" for="inlineRadio2">Fixed</label>
             </div>
             <div class="form-group" style="width:100%">
-                <label for="amount">Amount</label>
+                <label for="amount">Amount 
+                    <span *ngIf="settlementForm.value.feeType=='fixed'">(₦)</span><span *ngIf="settlementForm.value.feeType=='percentage'">(%)</span></label>
                 <input type="number" class="form-control" id="amount" 
                     placeholder="amount" formControlName="feeAmount"
                     [ngClass]="{'red-border-class': settlementForm.controls['feeAmount'].errors}">
                 <div *ngIf="settlementForm.controls['feeAmount'].errors && settlementForm.controls['feeAmount'].touched" class="error-msg">
                     <div [hidden]="!settlementForm.controls['feeAmount'].errors.required" class="text-danger">Amount is required.</div>
                 </div>
+                <div *ngIf="settlementForm.value.feeType=='percentage' && settlementForm.value.feeAmount>100" class="text-danger">Amount cannot be greater than 100%.</div>
              </div>
         </div>
+        <hr>
         
+    <div class="parties">
+        <span style="font-weight: bold; font-size:1.5rem; text-align: center">Parties:</span>
         <div class="card mb-4 party-card"  *ngFor="let item of settlementForm.get('parties').controls; index as i" 
             formArrayName="parties" style="box-shadow: 2px 2px 5px #ddd">
             <div class="card-header">
@@ -78,7 +83,9 @@
                             </span>
                         </div>
                         <div class="form-group" style="width:100%">
-                            <label for="feeAmount">Party Fee Amount</label>
+                            <label for="feeAmount">Party Fee Amount
+                                    <span *ngIf="settlementForm.value.feeType=='fixed'">(₦)</span><span *ngIf="settlementForm.value.feeType=='percentage'">(%)</span>
+                            </label>
                             <input type="number" class="form-control" id="feeAmount" 
                                 placeholder="Fee Amount" formControlName="partyFeeAmount">
                             <span *ngIf="settlementForm.controls.parties.controls[i].controls.partyFeeAmount.errors && 
@@ -89,19 +96,20 @@
                     </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-md btn-danger" style="float:right" (click)="deleteParty(i)">
+                <button class="btn btn-sm btn-danger" style="float:right" (click)="deleteParty(i)">
                     <mat-icon style="position:relative; top:5px">delete</mat-icon> 
                     Delete
                 </button>
             </div>
         </div>
+    </div>
 
-        <div style="display:flex; justify-items: end">
-                <button class="btn btn-md btn-primary mb-2" styl="float:right" (click)="addParty()">
+        <div style="float:right">
+                <button class="btn btn-md btn-primary mb-2 mr-2" (click)="addParty()">
                     <mat-icon style="position:relative; top:5px">add</mat-icon> 
                     Add Party ({{settlementForm.controls.parties.value.length}})
                 </button>
-                <button class="btn btn-lg btn-primary mt-4 mb-4" (click)="saveConfig()" style="float:right">
+                <button class="btn btn-md btn-primary mt-4 mb-4" (click)="saveConfig()" [disabled]="settlementForm.invalid">
                     <mat-icon style="position:relative; top:5px">save</mat-icon> 
                     Save
                 </button>
@@ -110,4 +118,3 @@
     </form>
 </div>
 
-<button (click)="test()" [swal]="['Oops!', 'This is not implemented yet :/', 'warning']">test</button>
