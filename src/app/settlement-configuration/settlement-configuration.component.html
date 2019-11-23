@@ -1,0 +1,113 @@
+<h3 style="text-align:center; font-size:2rem; font-weight:bold; text-decoration: underline" class="mt-4 mb-4">SETTLEMENT FORM</h3>
+<div class="container">
+    <form [formGroup]="settlementForm">
+        <div class="form-group">
+           <label for="institution">Select Institution</label>
+           <select id="institution" class="form-control" formControlName="institutionId">
+               
+           </select>
+        </div>
+        <div class="form-group">
+            <label for="document">Select Document</label>
+            <ng-select
+                [items]="documentTypes"
+                bindLabel="name"
+                bindValue="id"
+                formControlName="documentId"
+                [ngClass]="{'red-border-class': settlementForm.controls['documentId'].errors}"
+            >
+            </ng-select>
+            <div *ngIf="settlementForm.controls['documentId'].errors && settlementForm.controls['documentId'].touched" class="error-msg">
+                    <div [hidden]="!settlementForm.controls['documentId'].errors.required" class="text-danger">Document type is required.</div>
+            </div>
+        </div>
+        <div clas="form-row" style="display:flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="feeType" id="inlineRadio1" value="percentage" formControlName="feeType">
+                <label class="form-check-label" for="inlineRadio1">Percentage</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="feeType" id="inlineRadio2" value="fixed" formControlName="feeType">
+                <label class="form-check-label" for="inlineRadio2">Fixed</label>
+            </div>
+            <div class="form-group" style="width:100%">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" 
+                    placeholder="amount" formControlName="feeAmount"
+                    [ngClass]="{'red-border-class': settlementForm.controls['feeAmount'].errors}">
+                <div *ngIf="settlementForm.controls['feeAmount'].errors && settlementForm.controls['feeAmount'].touched" class="error-msg">
+                    <div [hidden]="!settlementForm.controls['feeAmount'].errors.required" class="text-danger">Amount is required.</div>
+                </div>
+             </div>
+        </div>
+        
+        <div class="card mb-4 party-card"  *ngFor="let item of settlementForm.get('parties').controls; index as i" 
+            formArrayName="parties" style="box-shadow: 2px 2px 5px #ddd">
+            <div class="card-header">
+                    <span style="font-weight: bold">Name: {{ settlementForm.controls.parties.controls[i].controls.partyName.value }}</span>
+            </div>
+            <div class="card-body party-card" [formGroupName]="i">
+                    <div style="display:flex">
+                        <div class="form-group mr-4" style="width:100%">
+                            <label for="partyName">Party Name</label>
+                            <input type="text" class="form-control" id="partyName" 
+                                placeholder="Party Name" formControlName="partyName">
+                            <span *ngIf="settlementForm.controls.parties.controls[i].controls.partyName.errors && 
+                                settlementForm.controls.parties.controls[i].controls.partyName.touched" 
+                                class="text-danger">Party Name is required.
+                            </span>
+                        </div>
+                        <div class="form-group" style="width:100%">
+                            <label for="accountName">Account Name</label>
+                            <input type="text" class="form-control" id="accountName" 
+                                placeholder="Account Name" formControlName="accountName">
+                            <span *ngIf="settlementForm.controls.parties.controls[i].controls.accountName.errors && 
+                                settlementForm.controls.parties.controls[i].controls.accountName.touched" 
+                                class="text-danger">Account Name is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display:flex">
+                        <div class="form-group mr-4" style="width:100%">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="number" class="form-control" id="accountNumber" 
+                                placeholder="Account Number" formControlName="accountNumber">
+                            <span *ngIf="settlementForm.controls.parties.controls[i].controls.accountNumber.errors && 
+                                settlementForm.controls.parties.controls[i].controls.accountNumber.touched" 
+                                class="text-danger">Account Number is required.
+                            </span>
+                        </div>
+                        <div class="form-group" style="width:100%">
+                            <label for="feeAmount">Party Fee Amount</label>
+                            <input type="number" class="form-control" id="feeAmount" 
+                                placeholder="Fee Amount" formControlName="partyFeeAmount">
+                            <span *ngIf="settlementForm.controls.parties.controls[i].controls.partyFeeAmount.errors && 
+                                settlementForm.controls.parties.controls[i].controls.partyFeeAmount.touched" 
+                                class="text-danger">Amount is required.
+                            </span>
+                        </div>
+                    </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-md btn-danger" style="float:right" (click)="deleteParty(i)">
+                    <mat-icon style="position:relative; top:5px">delete</mat-icon> 
+                    Delete
+                </button>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-items: end">
+                <button class="btn btn-md btn-primary mb-2" styl="float:right" (click)="addParty()">
+                    <mat-icon style="position:relative; top:5px">add</mat-icon> 
+                    Add Party ({{settlementForm.controls.parties.value.length}})
+                </button>
+                <button class="btn btn-lg btn-primary mt-4 mb-4" (click)="saveConfig()" style="float:right">
+                    <mat-icon style="position:relative; top:5px">save</mat-icon> 
+                    Save
+                </button>
+        </div>
+        
+    </form>
+</div>
+
+<button (click)="test()" [swal]="['Oops!', 'This is not implemented yet :/', 'warning']">test</button>

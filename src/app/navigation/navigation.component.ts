@@ -55,7 +55,7 @@ export class NavigationComponent implements OnInit {
     });
   }
   ngOnInit() {
-    console.log(this.user);
+    //console.log(this.user);
   }
 
   ngOnDestroy() {

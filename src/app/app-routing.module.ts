@@ -4,6 +4,7 @@ import { LoginComponent } from "./login/login.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ReportsComponent } from "./reports/reports.component";
+import { SettlementConfigurationComponent } from './settlement-configuration/settlement-configuration.component';
 
 // import { AuthGuard } from './util/auth.guard';
 import { AuthGuard } from "./auth.guard";
@@ -35,6 +36,12 @@ const routes: Routes = [
       {
         path: "reports",
         component: ReportsComponent,
+        canActivate: [AuthGuard],
+        data: { title: "Reports", read: true }
+      },
+      {
+        path: "settlementconfig",
+        component: SettlementConfigurationComponent,
         canActivate: [AuthGuard],
         data: { title: "Reports", read: true }
       },
